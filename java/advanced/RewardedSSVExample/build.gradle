@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.12'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+}
+
+group = 'com.example.rewardedssv'
+version = '1.0.0'
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    mavenCentral()
+}
+
+springBoot {
+    mainClass = 'com.example.rewardedssv.Application'
+}
+
+dependencies {
+    implementation 'com.vaadin.external.google:android-json:0.0.20131108.vaadin1'
+    implementation 'com.google.crypto.tink:tink-android:1.4.0-rc1'
+    // tag::actuator[]
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // end::actuator[]
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // tag::tests[]
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    // end::tests[]
+}
+
+test {
+    useJUnitPlatform()
+}
